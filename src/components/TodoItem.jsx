@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+
 import { editText, removeTodo, toggleTodoComplited } from "../store/todoSlice";
 
 const TdTable = ({ children, complited }) => (

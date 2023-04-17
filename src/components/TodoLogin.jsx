@@ -2,14 +2,14 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login } from "../store/todoSlice";
 
-const ErrorsSpan = ({ errors }) =>
+export const ErrorsSpan = ({ errors }) =>
   errors && (
     <span className="ml-3 text-sm font-bold text-red-400 tracking-wide">
-      {errors?.message || errors||"Ошибка!"}
+      {errors?.message || errors || "Ошибка!"}
     </span>
   );
 
-const TodoLogin = ({ setisOpenLogin, isOpenLogin, isAuth,message }) => {
+const TodoLogin = ({ setisOpenLogin, isOpenLogin, isAuth, message }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -26,16 +26,14 @@ const TodoLogin = ({ setisOpenLogin, isOpenLogin, isAuth,message }) => {
     <div className=" flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
       <div className=" fixed inset-0 bg-gray-800 opacity-25"></div>
       <div className="bg-white px-16 py-14 rounded-md text-center z-50">
-        {message &&(
-            <ErrorsSpan errors={message} />
-        )}
+        {message && <ErrorsSpan errors={message} />}
         <form onSubmit={handleSubmit(loginForm)} autoComplete="off">
           <input
             {...register("login", {
               required: "Обязательное поле!",
             })}
             className="input"
-            placeholder="логин"
+            placeholder="admin"
           />
           <ErrorsSpan errors={errors?.login} />
           <input
@@ -44,7 +42,7 @@ const TodoLogin = ({ setisOpenLogin, isOpenLogin, isAuth,message }) => {
             })}
             type="password"
             className="input"
-            placeholder="пароль"
+            placeholder="123"
           />
           <ErrorsSpan errors={errors?.pass} />
           <button

@@ -16,7 +16,7 @@ export const getAllTodos = createAsyncThunk(
       },
       body: JSON.stringify(payload),
     });
-    if (response.statusText !== "OK") {
+    if (response.status !== 200) {
       return rejectWithValue("Не удалось получить события!");
     }
     return await response.json();
@@ -32,7 +32,7 @@ export const login = createAsyncThunk(
       },
       body: JSON.stringify(data),
     });
-    if (response.statusText !== "OK") {
+    if (response.status !== 200) {
       return rejectWithValue("Не удалось авторизоваться!");
     }
     return await response.json();
@@ -48,7 +48,7 @@ export const addTodo = createAsyncThunk(
       },
       body: JSON.stringify(data),
     });
-    if (response.statusText !== "OK") {
+    if (response.status !== 200) {
       return rejectWithValue("Не удалось добавить задачу!");
     }
     const result = await response.json();
@@ -65,7 +65,7 @@ export const removeTodo = createAsyncThunk(
       },
       body: JSON.stringify(id),
     });
-    if (response.statusText !== "OK") {
+    if (response.status !== 200) {
       return rejectWithValue("Не удалось создать задачу!");
     }
     return id;
@@ -81,7 +81,7 @@ export const toggleTodoComplited = createAsyncThunk(
       },
       body: JSON.stringify(id),
     });
-    if (response.statusText !== "OK") {
+    if (response.status !== 200) {
       return rejectWithValue("Не удалось завершитть задачу!");
     }
     return id;
@@ -97,7 +97,7 @@ export const editText = createAsyncThunk(
       },
       body: JSON.stringify(data),
     });
-    if (response.statusText !== "OK") {
+    if (response.status !== 200) {
       return rejectWithValue("Не изменить текст задачи!");
     }
     return await response.json();

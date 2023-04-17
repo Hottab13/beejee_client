@@ -1,13 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addTodo, logout } from "../store/todoSlice";
 
-const ErrorsSpan = ({ errors }) =>
-  errors && (
-    <span className="ml-3 text-sm font-bold text-red-400 tracking-wide">
-      {errors?.message || "Ошибка!"}
-    </span>
-  );
+import { addTodo, logout } from "../store/todoSlice";
+import { ErrorsSpan } from "./TodoLogin";
 
 export const AlertSuccess = ({ message }) => (
   <div

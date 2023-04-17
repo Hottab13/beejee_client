@@ -1,19 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { getAllTodos } from "../store/todoSlice";
 import { TodoItem } from "./TodoItem";
 
-const ThTable = ({ children, nameSort }) => {
+const ThTable = ({ children}) => {
   const dispatch = useDispatch();
   const [isOrder, setisOrder] = useState(-1);
   let sort = () => {
-    if (nameSort === "complited") {
-      dispatch(getAllTodos({ sort: isOrder, name: "complited" }));
-    } else if (nameSort === "userName") {
-      dispatch(getAllTodos({ sort: isOrder, name: "userName" }));
-    }else if (nameSort === "еmail") {
-        dispatch(getAllTodos({ sort: isOrder, name: "еmail" }));
-      }
+    dispatch(getAllTodos({ sort: isOrder }));
     if (isOrder === -1) {
       setisOrder(+1);
     } else if (isOrder === 1) {
@@ -47,9 +42,9 @@ const TodoList = ({ todos }) => {
     <table className="table w-full p-2 border">
       <thead>
         <tr className="bg-gray-50 border-b">
-          <ThTable nameSort={"complited"}>завершено</ThTable>
-          <ThTable nameSort={"userName"}>имя пользователя</ThTable>
-          <ThTable nameSort={"еmail"}>еmail</ThTable>
+          <ThTable>завершено</ThTable>
+          <ThTable>имя пользователя</ThTable>
+          <ThTable>еmail</ThTable>
           <ThTable>текст задачи</ThTable>
           <ThTable>статус</ThTable>
           <ThTable>действие</ThTable>
