@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import { addTodo, logout } from "../store/todoSlice";
+import { addTodo, logout, setIsOpenLogin } from "../store/todoSlice";
 import { ErrorsSpan } from "./TodoLogin";
 
 export const AlertSuccess = ({ message }) => (
@@ -25,7 +25,7 @@ export const AlertSuccess = ({ message }) => (
   </div>
 );
 
-const InputField = ({ setisOpenLogin, isOpenLogin, isAuth, message }) => {
+const InputField = ({ isAuth, message }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -81,12 +81,12 @@ const InputField = ({ setisOpenLogin, isOpenLogin, isAuth, message }) => {
             сохранить задачу
           </button>
           {isAuth ? (
-            <button onClick={() => dispatch(logout())} className="input-btn">
+            <span onClick={() => dispatch(logout())} className="input-btn">
               выйти
-            </button>
+            </span>
           ) : (
             <span
-              onClick={() => setisOpenLogin(!isOpenLogin)}
+              onClick={() => dispatch(setIsOpenLogin())}
               className="input-btn"
             >
               авторизоваться

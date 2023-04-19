@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { login } from "../store/todoSlice";
+import { login, setIsOpenLogin } from "../store/todoSlice";
 
 export const ErrorsSpan = ({ errors }) =>
   errors && (
@@ -9,7 +9,7 @@ export const ErrorsSpan = ({ errors }) =>
     </span>
   );
 
-const TodoLogin = ({ setisOpenLogin, isOpenLogin, isAuth, message }) => {
+const TodoLogin = ({ message }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -17,8 +17,7 @@ const TodoLogin = ({ setisOpenLogin, isOpenLogin, isAuth, message }) => {
     reset,
     formState: { errors },
   } = useForm();
-  if (isAuth) setisOpenLogin(!isOpenLogin);
-  const loginForm = (data) => {
+  const loginForm  = (data) => {
     dispatch(login(data));
     reset();
   };
@@ -45,12 +44,12 @@ const TodoLogin = ({ setisOpenLogin, isOpenLogin, isAuth, message }) => {
             placeholder="123"
           />
           <ErrorsSpan errors={errors?.pass} />
-          <button
-            onClick={() => setisOpenLogin(!isOpenLogin)}
+          <span
+            onClick={() => dispatch(setIsOpenLogin())}
             className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-md text-white"
           >
             Отмена
-          </button>
+          </span>
           <button
             type="submit"
             className="bg-indigo-500 hover:bg-indigo-600 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold"

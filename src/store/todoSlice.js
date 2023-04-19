@@ -110,6 +110,8 @@ const initialState = {
   status: "",
   isAuth: false,
   message: null,
+  isOpenLogin: false,
+  idEditText:"",
 };
 export const todoSlice = createSlice({
   name: "todo",
@@ -117,6 +119,12 @@ export const todoSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isAuth = false;
+    },
+    setIsOpenLogin: (state) => {
+      state.isOpenLogin = !state.isOpenLogin;
+    },
+    setIsText: (state,action) => {
+      state.idEditText=action.payload._id
     },
   },
   extraReducers: (builder) => {
@@ -136,6 +144,7 @@ export const todoSlice = createSlice({
         state.status = "resolved";
         if (action.payload) {
           state.isAuth = true;
+          state.isOpenLogin = !state.isOpenLogin;
         } else {
           state.message = "неправильные реквизиты доступа";
         }
@@ -177,6 +186,6 @@ export const todoSlice = createSlice({
   },
 });
 
-export const { logout } = todoSlice.actions;
+export const { logout, setIsOpenLogin, setIsText } = todoSlice.actions;
 
 export default todoSlice.reducer;

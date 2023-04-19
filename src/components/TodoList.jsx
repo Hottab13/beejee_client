@@ -53,7 +53,7 @@ const TodoList = ({ todos }) => {
       <tbody>
         {todos.todos.docs &&
           todos.todos.docs.map((todo) => (
-            <TodoItem key={todo._id} {...todo} isAuth={todos.isAuth} />
+            <TodoItem key={todo._id} {...todo} isAuth={todos.isAuth} idEditText={todos.idEditText}/>
           ))}
       </tbody>
     </table>

@@ -1,16 +1,14 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import { editText, removeTodo, toggleTodoComplited } from "../store/todoSlice";
+import { editText, removeTodo, setIsText, toggleTodoComplited } from "../store/todoSlice";
 
 const TdTable = ({ children, complited }) => (
   <td className={complited ? "p-2 bg-green-400 border-r" : "p- border-r"}>
     {children}
   </td>
 );
-const FormText = ({ text, setisText, isText, _id }) => {
-  const dispatch = useDispatch();
+const FormText = ({ text, _id, dispatch }) => {
   const { register, handleSubmit } = useForm({
     defaultValues: {
       text,
@@ -22,7 +20,7 @@ const FormText = ({ text, setisText, isText, _id }) => {
       text: text.text,
     };
     dispatch(editText(data));
-    setisText(!isText);
+    dispatch(setIsText({}));
   };
   return (
     <form onSubmit={handleSubmit(hendleText)}>
@@ -48,9 +46,10 @@ const TodoItem = ({
   text,
   _id,
   isAuth,
+  isText,
+  idEditText,
 }) => {
   const dispatch = useDispatch();
-  const [isText, setisText] = useState(false);
   return (
     <tr className="bg-gray-100 text-center border-b text-sm text-gray-600">
       <TdTable complited={complited}>
@@ -65,12 +64,11 @@ const TodoItem = ({
       <TdTable complited={complited}>{userName}</TdTable>
       <TdTable complited={complited}>{еmail}</TdTable>
       <TdTable complited={complited}>
-        {isText ? (
+        { idEditText===_id ? (
           <FormText
             text={text}
             _id={_id}
-            setisText={setisText}
-            isText={isText}
+            dispatch={dispatch}
           />
         ) : (
           text
@@ -83,21 +81,21 @@ const TodoItem = ({
       </TdTable>
       {isAuth && (
         <TdTable>
-          {!isText && (
-            <button
-              onClick={() => setisText(!isText)}
+          {!idEditText && (
+            <span
+              onClick={() =>  dispatch(setIsText({ _id }))}
               className="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
             >
               Редактировать текст
-            </button>
+            </span>
           )}
 
-          <button
+          <span
             onClick={() => dispatch(removeTodo({ _id }))}
             className="bg-red-500 ml-5 p-2 text-white hover:shadow-lg text-xs font-thin"
           >
             Удалить
-          </button>
+          </span>
         </TdTable>
       )}
     </tr>
